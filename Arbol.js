@@ -1,44 +1,51 @@
-import Nodo from './Nodo.js';
+import Node from './Nodo.js';
 
-class Three {
+class Tree {
 
-    constructor(array) {
-        this.root = this.buildThree(array);
+  constructor(array, start, end) {
+    this.root = this.buildTree(array,start,end);
+  }
+
+  buildTree(array, start, end) {
+    // verificamos si el arreglo esta ordenado
+    if (!this.ordenAscendente(array)) {
+      array.sort(function (a, b) { return a - b });
     }
 
-    buildThree(array)
-    {
-      // verificamos si el arreglo esta ordenado
-      if(!this.ordenAscendente(array))
-        {
-          console.log('antes');
-          console.log(array);
-          array.sort(function(a,b){return a - b});
+    //caso base
 
-          console.log('despues');
-          console.log(array);
-        }
-
+    if (start > end) {
+      return null;
     }
 
-    ordenAscendente(array)
-    {
-      for (let i = 0 ; i < array.length-1 ; i ++)
-        {
-          if(!(array[i] <= array[i+1]))
-            {
-              return false;
-            }
-        }
-        return true;
-    }
+   
 
-    // numeros.sort(function(a, b){return a - b});
+    let med = parseInt((start + end) / 2); // escogemos el elemento del medio
 
-    //[1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
-    // construye recursivamente de izquierda a derecha 
+    let node = new Node(array[med]); // lo inicializamos como Nodo raiz
     
+    // recursivamente se construye en ambos sentidos
+
+    node.left = this.buildTree(array, start, med - 1);
+    node.right = this.buildTree(array, med + 1, end);
+
+    return node;
+
+
+  }
+
+  ordenAscendente(array) {
+    for (let i = 0; i < array.length - 1; i++) {
+      if (!(array[i] <= array[i + 1])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+ 
+
 
 }
 
-export default Three;
+export default Tree;
