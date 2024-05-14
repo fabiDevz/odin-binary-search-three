@@ -11,6 +11,7 @@ let arbol = new Tree(vector2, 0, vector2.length-1);
 
 
 
+
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
       return;
@@ -24,6 +25,16 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
  
+  //prettyPrint(arbol.root);
+
+  arbol.insert(arbol.root, 100);
+  arbol.insert(arbol.root, 200);
+  arbol.insert(arbol.root, 300);
+  arbol.insert(arbol.root, 400);
   prettyPrint(arbol.root);
 
+  //arbol.deleteItem(arbol.root, 8);
 
+  prettyPrint(arbol.root);
+
+  console.log(arbol.find(arbol.root,8));
