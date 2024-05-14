@@ -4,7 +4,7 @@ import Tree from './Arbol.js';
 
 
 
-let vector2 = [10, 12, 11, 5, 1, 2, 3, 25, 44, 33, 27, 99, 100];
+let vector2 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let arbol = new Tree(vector2, 0, vector2.length-1);
 
@@ -25,3 +25,5 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   };
  
   prettyPrint(arbol.root);
+
+

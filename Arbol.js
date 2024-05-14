@@ -3,33 +3,35 @@ import Node from './Nodo.js';
 class Tree {
 
   constructor(array, start, end) {
-    this.root = this.buildTree(array,start,end);
+    this.root = this.buildTree(array, start, end);
   }
 
-  buildTree(array, start, end) {
+  buildTree(array, start, end = 10) {
     // verificamos si el arreglo esta ordenado
     if (!this.ordenAscendente(array)) {
       array.sort(function (a, b) { return a - b });
     }
 
-    //caso base
+    if(this.tieneDuplicados(array))
+      {
+       array = this.eliminarDuplicados(array);
+       end = array.length-1;
+       
+      }
 
     if (start > end) {
       return null;
     }
 
-   
+    let mid = Math.floor((start + end) / 2);
+    let node = new Node(array[mid]);
 
-    let med = parseInt((start + end) / 2); // escogemos el elemento del medio
+    node.left = this.buildTree(array, start, mid - 1);
 
-    let node = new Node(array[med]); // lo inicializamos como Nodo raiz
-    
-    // recursivamente se construye en ambos sentidos
-
-    node.left = this.buildTree(array, start, med - 1);
-    node.right = this.buildTree(array, med + 1, end);
+    node.right = this.buildTree(array, mid + 1, end);
 
     return node;
+
 
 
   }
@@ -43,7 +45,46 @@ class Tree {
     return true;
   }
 
- 
+  eliminarDuplicados(array) {
+
+    let unicos = [];
+
+    let valoresVistos = {};
+
+    // Iteramos sobre cada elemento del array
+    for (let i = 0; i < array.length; i++) {
+      let elemento = array[i];
+      if (!(elemento in valoresVistos)) {
+
+        unicos.push(elemento);
+
+        valoresVistos[elemento] = true;
+      }
+    }
+
+
+    return unicos;
+  }
+
+   tieneDuplicados(array) {
+
+    let elementosUnicos = {};
+    for (let i = 0; i < array.length; i++) {
+       
+        if (elementosUnicos[array[i]]) {
+            return true;
+        } else {
+        
+            elementosUnicos[array[i]] = true;
+        }
+    }
+
+    return false;
+}
+
+
+
+
 
 
 }
