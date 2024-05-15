@@ -31,10 +31,12 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   arbol.insert(arbol.root, 200);
   arbol.insert(arbol.root, 300);
   arbol.insert(arbol.root, 400);
-  prettyPrint(arbol.root);
+ // prettyPrint(arbol.root);
 
   //arbol.deleteItem(arbol.root, 8);
 
   prettyPrint(arbol.root);
 
-  console.log(arbol.find(arbol.root,8));
+ // console.log(arbol.find(arbol.root,8));
+
+console.log(arbol.levelOrder(arbol.root));

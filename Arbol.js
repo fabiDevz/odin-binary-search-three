@@ -154,11 +154,40 @@ class Tree {
     return false;
   }
 
+  levelOrder(root) {
+    if (!root) {
+      return [];
+    }
+
+    const que = [];
+    const res = [];
+    que.push(root);
+
+    while (que.length) {
+      const temp = [];
+      const size = que.length;
+
+      for (let i = 0; i < size; i++) {
+        const node = que.shift();
+        temp.push(node.data);
+        if (node.left) {
+          que.push(node.left);
+        }
+        if (node.right) {
+          que.push(node.right);
+        }
+      }
+      res.push(temp);
+    }
+    return res;
+  };
 
 
 
 
 
 }
+
+
 
 export default Tree;
