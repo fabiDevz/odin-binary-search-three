@@ -182,6 +182,56 @@ class Tree {
     return res;
   };
 
+  inOrder(root)
+  {
+    if (root) {
+
+      this.inOrder(root.left);
+      console.log(root.data);
+      this.inOrder(root.right);
+    }
+  }
+
+  preOrder(root)
+  {
+    if (root) {
+
+      console.log(root.data);
+      this.preOrder(root.left);
+      
+      this.preOrder(root.right);
+    }
+  }
+
+  postOrder(root)
+  {
+    if (root) {
+      this.postOrder(root.left);
+      this.postOrder(root.right);
+      console.log(root.data);
+    }
+  }  
+
+  height(node) {
+    if (node === null) {
+      return 0; 
+    } else {
+    
+      const leftHeight = this.height(node.left);
+      const rightHeight = this.height(node.right);
+
+      
+
+      const maxHeight = Math.max(leftHeight, rightHeight) + 1;
+      console.log("Altura del subárbol con raíz", node.data, ":", maxHeight);
+      return maxHeight;
+    }
+  }
+
+  
+
+
+  
 
 
 
