@@ -6,7 +6,7 @@ class Tree {
     this.root = this.buildTree(array, start, end);
   }
 
-  buildTree(array, start, end = 10) {
+  buildTree(array, start, end ) {
     // verificamos si el arreglo esta ordenado
     if (!this.ordenAscendente(array)) {
       array.sort(function (a, b) { return a - b });
@@ -182,14 +182,17 @@ class Tree {
     return res;
   };
 
-  inOrder(root)
+  inOrder(root, values=[])
   {
     if (root) {
 
-      this.inOrder(root.left);
+      this.inOrder(root.left, values);
       console.log(root.data);
-      this.inOrder(root.right);
+      values.push(root.data);
+      this.inOrder(root.right, values);
     }
+
+    return values;
   }
 
   preOrder(root)
@@ -223,20 +226,66 @@ class Tree {
       
 
       const maxHeight = Math.max(leftHeight, rightHeight) + 1;
-      console.log("Altura del subárbol con raíz", node.data, ":", maxHeight);
+     // console.log("Altura del subárbol con raíz", node.data, ":", maxHeight);
       return maxHeight;
     }
   }
 
-  
+  depth(value, root = this.root, currentDepth = 0) {
+    if (root === null) {
+      return -1; // Si el nodo actual es nulo, el valor no se encuentra en el árbol
+    }
 
+    if (root.data === value) {
+      return currentDepth; // Si el nodo actual contiene el valor, devuelve la profundidad actual
+    }
 
-  
+    // Busca en los subárboles izquierdo y derecho
+    const leftDepth = this.depth(value, root.left, currentDepth + 1);
+    const rightDepth = this.depth(value, root.right, currentDepth + 1);
 
+    // Si el nodo no se encuentra en ninguno de los subárboles, devuelve -1
+    if (leftDepth === -1 && rightDepth === -1) {
+      return -1;
+    }
 
+    // Retorna la profundidad máxima encontrada en los subárboles
+    return Math.max(leftDepth, rightDepth);
+  }
 
+  isBalanced(root = this.root) {
+    if (root === null) {
+      return true;
+    }
 
+    const leftHeight = this.height(root.left);
+    const rightHeight = this.height(root.right);
+
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return false;
+    }
+
+    return this.isBalanced(root.left) && this.isBalanced(root.right);
+  }
+
+  rebalance()
+  {
+      // Obtener todos los valores en orden
+      const values = this.inOrder(this.root);
+
+      // Reconstruir el árbol balanceado
+      this.root = this.buildTree(values, 0, values.length - 1);
+  }
 }
+  
+
+
+  
+
+
+
+
+
 
 
 
